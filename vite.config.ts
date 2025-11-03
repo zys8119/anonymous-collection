@@ -39,6 +39,6 @@ export default defineConfig({
   ],
   root: "front",
   server: {
-    allowedHosts: true,
+    allowedHosts: ["ac.zys8119.cn"],
   },
 });
