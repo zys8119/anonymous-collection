@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite --host & cd server && tsx watch main.ts",
+    "build": "vite build",
     "postinstall": "cd server && pnpm install"
   },
   "keywords": [],
