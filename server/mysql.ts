@@ -1,13 +1,13 @@
 import { createPool, QueryOptions } from "mysql2";
 import * as ncol from "ncol";
 const pool = createPool({
-  host: "127.0.0.1",
-  port: 33006,
-  user: "root",
-  password: "123456",
-  database: "api",
-  connectionLimit: 10,
-});
+  host: process.env.DB_HOST || "127.0.0.1",
+  port: process.env.DB_PORT || 33006,
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "123456",
+  database: process.env.DB_DATABASE || "api",
+  connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
+} as any);
 export default function (sql: string | QueryOptions, values?: any) {
   return new Promise((resolve, reject) => {
     try {
