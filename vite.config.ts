@@ -1,7 +1,27 @@
 import { defineConfig } from "vite";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import VueRouter from "unplugin-vue-router/vite";
 import Vue from "@vitejs/plugin-vue";
+import { VueRouterAutoImports } from "unplugin-vue-router";
 export default defineConfig({
-  plugins: [Vue()],
+  plugins: [
+    Vue(),
+    VueRouter({
+      routesFolder: [
+        {
+          src: "front/src/pages",
+          path: "",
+        },
+      ],
+    }),
+    AutoImport({
+      imports: [VueRouterAutoImports],
+    }),
+    Components({
+      dirs: ["front/src/components"],
+    }),
+  ],
   root: "front",
   server: {
     port: 8080,

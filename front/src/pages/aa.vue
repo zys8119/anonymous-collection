@@ -1,11 +1,9 @@
 <template>
-    <div class='App'>
-        <router-view></router-view>
-    </div>
+    <div class='aa'>asda</div>
 </template>
 <script setup lang="ts">
 
 </script>
 <style scoped lang="less">
-.App {}
+.aa {}
 </style>

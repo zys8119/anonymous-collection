@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "module": "esnext",
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["front/*"]
-    }
+    },
+    "types": ["unplugin-vue-router/client", "vite/client"]
   }
 }
