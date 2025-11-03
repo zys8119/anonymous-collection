@@ -4,7 +4,7 @@ import * as XLSX from "xlsx";
 export const create = async function () {
   const content = await this.$s.get(true, this.$body, "content");
   const name = await this.$s.get(this.$body, "name", "匿名");
-  await query("INSERT INTO tirilaser (content, name) VALUES (?)", [
+  await query("INSERT INTO tirilaser (content, name) VALUES (?, ?)", [
     content,
     name,
   ]);
