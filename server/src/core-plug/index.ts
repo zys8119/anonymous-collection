@@ -1,18 +1,20 @@
-import urlParse from "./urlParse"
-import helperFun from "./helperFun"
-import bodyData from "./bodyData"
-import mysql from "./mysql"
-import staticPlugin from "./staticPlugin"
-import websocket from "./websocket"
-import corsPlugin from "./corsPlugin"
-import mailerPlugin from "./mailerPlugin"
+import urlParse from "./urlParse";
+import helperFun from "./helperFun";
+import bodyData from "./bodyData";
+import mysql from "./mysql";
+import staticPlugin from "./staticPlugin";
+import websocket from "./websocket";
+import corsPlugin from "./corsPlugin";
+import mailerPlugin from "./mailerPlugin";
+import serializePlugin from "./serialize";
 export default [
-    urlParse,
-    helperFun,
-    bodyData,
-    mysql,
-    staticPlugin,
-    websocket,
-    corsPlugin,
-    mailerPlugin,
-]
+  urlParse,
+  helperFun,
+  bodyData,
+  mysql,
+  staticPlugin,
+  websocket,
+  corsPlugin,
+  mailerPlugin,
+  serializePlugin,
+];

@@ -65,7 +65,7 @@ const init = () => {
 }
 const stop = watch([list, show], init, { immediate: true, deep: true })
 const getList = async () => {
-    await fetch("/api/tirilaser/list")
+    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/list")
         .then(res => res.json())
         .then(data => {
             const diffData = differenceBy(data.data.list, list.value, 'id') as any

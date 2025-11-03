@@ -1,11 +1,11 @@
 import { createPool, QueryOptions } from "mysql2";
 import * as ncol from "ncol";
 const pool = createPool({
-  host: "192.168.110.164",
-  port: 3306,
+  host: "127.0.0.1",
+  port: 33006,
   user: "root",
-  password: "Root@123",
-  database: "conference",
+  password: "23456",
+  database: "api",
   connectionLimit: 10,
 });
 export default function (sql: string | QueryOptions, values?: any) {
