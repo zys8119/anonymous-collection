@@ -1,5 +1,8 @@
 <template>
-    <div class='aa'>asda</div>
+    <div class='aa'>
+        asdas
+        asdasdasdas
+    </div>
 </template>
 <script setup lang="ts">
 
