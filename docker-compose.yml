@@ -4,8 +4,11 @@ services:
   app:
     image: zys8119/anonymous-collection:latest
     container_name: anonymous-collection
+    volumes:
+      - ./front:/app/front
+      - ./server:/app/server
     environment:
-      - VITE_API_URL=http://localhost:82
+      - VITE_API_URL=http://192.168.110.76:82
       - DB_HOST=host.docker.internal
       - DB_PORT=3306
       - DB_USER=root
