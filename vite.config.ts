@@ -38,5 +38,7 @@ export default defineConfig({
     }),
   ],
   root: "front",
-  server: {},
+  server: {
+    allowedHosts: true,
+  },
 });
