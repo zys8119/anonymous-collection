@@ -108,7 +108,11 @@ const getList = async () => {
         })
 }
 const exportData = async () => {
-    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/export")
+    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/export", {
+        headers: {
+            'Authorization': `Basic ${btoa(`${username.value}:${password.value}`)}`
+        }
+    })
         .then(res => res.arrayBuffer())
         .then(buffer => {
             const blob = new Blob([buffer], { type: 'application/vnd.ms-excel' });

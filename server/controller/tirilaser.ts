@@ -6,7 +6,7 @@ export const create = async function () {
   await query("INSERT INTO tirilaser (content) VALUES (?)", [content]);
   this.$success("更新成功");
 } as controller;
-export const list = async function (request) {
+const Authenticate = async function (request) {
   // 简单账号密码
   const USERNAME = "admin";
   const PASSWORD = "123456";
@@ -22,6 +22,12 @@ export const list = async function (request) {
         "WWW-Authenticate": 'Basic realm="Restricted Area"',
       },
     });
+    return true;
+  }
+  return false;
+} as controller;
+export const list = async function (request) {
+  if (await (Authenticate as any).call(this, request)) {
     return;
   }
   const res = await query("SELECT * FROM tirilaser");
@@ -30,6 +36,9 @@ export const list = async function (request) {
   });
 } as controller;
 export const exportData = async function (request) {
+  if (await (Authenticate as any).call(this, request)) {
+    return;
+  }
   const data = await query(
     "SELECT name as 姓名, content as 吐槽内容 FROM tirilaser"
   );
