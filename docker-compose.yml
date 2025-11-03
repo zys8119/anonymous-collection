@@ -2,10 +2,15 @@ version: '3.9'
 
 services:
   app:
-    build: .
+    image: zys8119/anonymous-collection:latest
     container_name: anonymous-collection
     environment:
       - VITE_API_URL=http://localhost:82
+      - DB_HOST=host.docker.internal
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=rootroot
+      - DB_DATABASE=api
     ports:
       - "3000:5173"
       - "82:81"
