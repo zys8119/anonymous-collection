@@ -18,12 +18,18 @@ export default defineConfig({
       ],
     }),
     AutoImport({
-      imports: [VueRouterAutoImports],
+      imports: ["vue", "@vueuse/core", "vue-router", VueRouterAutoImports],
       dts: "auto-import.d.ts",
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
+      ],
     }),
     Components({
       dirs: ["front/src/components"],
       dts: "auto-components.d.ts",
+      include: [/\.vue$/, /\.vue\?vue/],
     }),
   ],
   root: "front",
