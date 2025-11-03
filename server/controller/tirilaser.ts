@@ -1,5 +1,6 @@
 import { controller, routes } from "@wisdom-serve/serve/types/type";
 import query from "../mysql";
+import * as XLSX from "xlsx";
 export const create = async function () {
   const content = await this.$s.get(true, this.$body, "content");
   await query("INSERT INTO tirilaser (content) VALUES (?)", [content]);
@@ -9,6 +10,31 @@ export const list = async function () {
   const res = await query("SELECT * FROM tirilaser");
   this.$success({
     list: res,
+  });
+} as controller;
+export const exportData = async function (request) {
+  const data = await query(
+    "SELECT name as 姓名, content as 吐槽内容 FROM tirilaser"
+  );
+  // 1️⃣ 将 JSON 转换为工作表
+  const worksheet = XLSX.utils.json_to_sheet(data as any);
+
+  // 2️⃣ 创建一个新的工作簿
+  const workbook = XLSX.utils.book_new();
+
+  // 3️⃣ 把工作表加入工作簿
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  const buffer = XLSX.write(workbook, {
+    type: "buffer",
+    bookType: "xlsx",
+  });
+  // 4️⃣ 写入 Excel 文件
+  this.$send(buffer, {
+    headers: {
+      "access-control-allow-origin": request.headers.origin || "*",
+      "access-control-allow-methods": "*",
+      "access-control-allow-headers": this.options.corsHeaders || "*",
+    },
   });
 } as controller;
 export default [
@@ -24,6 +50,11 @@ export default [
         path: "list",
         method: "GET",
         controller: list,
+      },
+      {
+        path: "export",
+        method: "GET",
+        controller: exportData,
       },
     ],
   },

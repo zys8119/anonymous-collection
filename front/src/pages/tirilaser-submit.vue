@@ -5,7 +5,7 @@
             <img class="abs left-10px top-10px  w-120px cursor-pointer z-100" src="/images/1.png" alt="">
             <div class="max-w-2xl max-w-90%">
                 <Focus sentence="这里没有老板 没有领导 没有任何人 只有你自己" />
-                <n-input class="w-full b-1px b-#fe2c2c text-#000!  text-30px" :rows="2" placeholder="您的吐槽"
+                <n-input class="w-full b-1px b-#fe2c2c text-#000!  text-30px" :rows="2" placeholder="吐槽吧"
                     v-model:value="content" @keyup.enter="submit" clearable></n-input>
                 <n-button class="w-100% m-y-10px" type="primary" @click="submit">提交</n-button>
                 <div class="text-#999 text-12px flex-center">匿名收集</div>

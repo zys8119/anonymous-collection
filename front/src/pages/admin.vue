@@ -11,7 +11,7 @@
                             <div
                                 class="bg-#000  bg-op-50 abs-content flex-center op-0 transition-all flex-ccenter flex-col gap-10px">
                                 <n-button type="primary" @click="copyLink">复制链接</n-button>
-                                <n-button type="warning">导出数据</n-button>
+                                <n-button type="warning" @click="exportData">导出数据</n-button>
                             </div>
                         </div>
                         <div class="text-#999 text-12px mt-10px">扫码吐槽</div>
@@ -82,6 +82,20 @@ const getList = async () => {
                 await getList()
             }, 1000);
         })
+}
+const exportData = async () => {
+    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/export")
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+            const blob = new Blob([buffer], { type: 'application/vnd.ms-excel' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.xlsx';
+            a.click();
+            URL.revokeObjectURL(url);
+        })
+    await message.success('导出成功!')
 }
 onMounted(async () => {
     await getList()
