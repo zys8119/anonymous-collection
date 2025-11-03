@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as _}from"./index-DadYgfkC.js";const c={},o={class:"404Page text-#f00"};function a(s,n){return _(),t("div",o,"404 Not Found")}const d=e(c,[["render",a],["__scopeId","data-v-7a3a9f03"]]);export{d as default};
