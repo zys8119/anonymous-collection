@@ -17,9 +17,11 @@ export default defineConfig({
     }),
     AutoImport({
       imports: [VueRouterAutoImports],
+      dts: "auto-import.d.ts",
     }),
     Components({
       dirs: ["front/src/components"],
+      dts: "auto-components.d.ts",
     }),
   ],
   root: "front",

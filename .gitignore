@@ -1,2 +1,4 @@
 node_modules/
 .DS_Store
+auto-import.d.ts
+auto-components.d.ts
