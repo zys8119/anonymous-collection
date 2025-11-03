@@ -4,8 +4,10 @@ import Components from "unplugin-vue-components/vite";
 import VueRouter from "unplugin-vue-router/vite";
 import Vue from "@vitejs/plugin-vue";
 import { VueRouterAutoImports } from "unplugin-vue-router";
+import Unocss from "unocss/vite";
 export default defineConfig({
   plugins: [
+    Unocss(),
     Vue(),
     VueRouter({
       routesFolder: [

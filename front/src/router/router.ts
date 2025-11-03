@@ -4,7 +4,10 @@ export const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-console.log(routes);
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || "匿名收藏";
+  next();
+});
 // This will update routes at runtime without reloading the page
 if (import.meta.hot) {
   handleHotUpdate(router);
