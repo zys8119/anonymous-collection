@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import VueRouter from "unplugin-vue-router/vite";
 import Vue from "@vitejs/plugin-vue";
 import { VueRouterAutoImports } from "unplugin-vue-router";
@@ -30,10 +31,10 @@ export default defineConfig({
       ],
     }),
     Components({
-      dirs: ["front/src/components"],
+      dirs: ["components"],
       dts: "auto-components.d.ts",
-      include: [/\.vue$/, /\.vue\?vue/],
-      resolvers: [MotionResolver()],
+      // include: [/\.vue$/, /\.vue\?vue/],
+      resolvers: [MotionResolver(), NaiveUiResolver()],
     }),
   ],
   root: "front",

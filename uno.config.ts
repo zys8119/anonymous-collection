@@ -53,23 +53,6 @@ export default defineConfig({
       },
     ],
     [
-      /^frame(?:-?(-?.+))?$/,
-      (match) => {
-        const [name, start, time, ...timing] = match[1].split("-");
-        let timingFn = timing;
-        let timeStr = time;
-        if (time === "cubic") {
-          timingFn = [time].concat(timing);
-          timeStr = "";
-        }
-        return {
-          animation: `${name} calc(1 - var(--sy) / ${start}) ${timeStr || ""} ${
-            timingFn.join("-") || "linear"
-          } forwards reverse`,
-        };
-      },
-    ],
-    [
       // c-var--primary-color => color: var(--primary-color)
       /^c-var-([a-zA-Z0-9-]+)$/,
       (match) => {

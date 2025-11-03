@@ -19,7 +19,7 @@ const { message } = createDiscreteApi(['message'])
 const content = ref("")
 const submit = async () => {
     if (!content.value) return message.error("请输入内容")
-    await fetch("/api/tirilaser/create", {
+    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -31,6 +31,7 @@ const submit = async () => {
     content.value = ""
     await message.success("提交成功")
 }
+useDark()
 </script>
 <style scoped lang="less">
 .tirilaser-submit {}

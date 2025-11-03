@@ -70,7 +70,7 @@ const getList = async () => {
         .then(data => {
             const diffData = differenceBy(data.data.list, list.value, 'id') as any
             if (list.value.length > 0 && diffData.length > 0) {
-                speechSynthesis.speak(new SpeechSynthesisUtterance(diffData.map(e => e.content).join(',')))
+                // speechSynthesis.speak(new SpeechSynthesisUtterance(diffData.map(e => e.content).join(',')))
             }
             list.value = list.value.concat(diffData)
 

@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import "tailwindcss";
+import "./src/assaet/style.css";
 import "virtual:uno.css";
 import App from "./App.vue";
 import { router } from "./src/router/router";
