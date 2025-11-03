@@ -4,6 +4,8 @@ services:
   app:
     image: zys8119/anonymous-collection:latest
     container_name: anonymous-collection
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./front:/app/front
       - ./server:/app/server
@@ -17,7 +19,7 @@ services:
       - DB_HOST=host.docker.internal
       - DB_PORT=33006
       - DB_USER=root
-      - DB_PASSWORD=rootroot
+      - DB_PASSWORD=123456
       - DB_DATABASE=api
     ports:
       - "3001:5173"
