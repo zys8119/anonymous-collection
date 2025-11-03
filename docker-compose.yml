@@ -4,6 +4,8 @@ services:
   app:
     build: .
     container_name: anonymous-collection
+    environment:
+      - VITE_API_URL=http://localhost:82
     ports:
       - "3000:5173"
       - "82:81"

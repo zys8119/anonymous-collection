@@ -84,46 +84,65 @@ const init = () => {
 }
 const stop = watch([list, show], init, { immediate: true, deep: true })
 const getList = async () => {
-    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/list", {
-        headers: {
-            'Authorization': `Basic ${btoa(`${username.value}:${password.value}`)}`
-        }
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.code === 403) {
+    try {
+        await fetch(import.meta.env.VITE_API_URL + "/tirilaser/list", {
+            headers: {
+                'Authorization': `Basic ${btoa(`${username.value}:${password.value}`)}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.code === 403) {
+                    message.error('未授权或账号密码错误!')
+                    showLogin.value = true
+                    username.value = ''
+                    password.value = ''
+                    return
+                }
+                const diffData = differenceBy(data.data.list, list.value, 'id') as any
+                list.value = list.value.concat(diffData)
+                setTimeout(async () => {
+                    await getList()
+                }, 1000);
+            }).catch(err => {
                 message.error('未授权或账号密码错误!')
                 showLogin.value = true
                 username.value = ''
                 password.value = ''
-                return
-            }
-            const diffData = differenceBy(data.data.list, list.value, 'id') as any
-            list.value = list.value.concat(diffData)
-            setTimeout(async () => {
-                await getList()
-            }, 1000);
-        }).catch(err => {
-            console.log(err)
-        })
+            })
+    } catch (error) {
+        message.error('未授权或账号密码错误!')
+        showLogin.value = true
+        username.value = ''
+        password.value = ''
+    }
+
 }
 const exportData = async () => {
-    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/export", {
-        headers: {
-            'Authorization': `Basic ${btoa(`${username.value}:${password.value}`)}`
-        }
-    })
-        .then(res => res.arrayBuffer())
-        .then(buffer => {
-            const blob = new Blob([buffer], { type: 'application/vnd.ms-excel' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'data.xlsx';
-            a.click();
-            URL.revokeObjectURL(url);
+    try {
+        await fetch(import.meta.env.VITE_API_URL + "/tirilaser/export", {
+            headers: {
+                'Authorization': `Basic ${btoa(`${username.value}:${password.value}`)}`
+            }
         })
-    await message.success('导出成功!')
+            .then(res => res.arrayBuffer())
+            .then(buffer => {
+                const blob = new Blob([buffer], { type: 'application/vnd.ms-excel' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'data.xlsx';
+                a.click();
+                URL.revokeObjectURL(url);
+            })
+        await message.success('导出成功!')
+    } catch (error) {
+        showLogin.value = true
+        username.value = ''
+        password.value = ''
+        message.error('导出失败!')
+    }
+
 }
 const login = async () => {
     if (!username.value || !password.value) return message.error('请输入用户名和密码!')
