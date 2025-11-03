@@ -1,3 +1,5 @@
+import Vconsole from "vconsole";
+new Vconsole();
 import { createApp } from "vue";
 import "./src/assaet/style.css";
 import "virtual:uno.css";
