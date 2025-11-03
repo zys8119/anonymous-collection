@@ -113,7 +113,7 @@ export default defineConfig({
       const importantStart = /^!/.test(rawSelector) ? important : "";
       const importantEnd = /!$/.test(rawSelector) ? important : "";
       const matcherReplace = (matcher) =>
-        matcher.replace(/(\.|:|\[|\]|#|&|!|>|\+|~)/g, "$1");
+        matcher.replace(/(\.|:|\[|\]|#|&|!|>|\+|~)/g, "\\$1");
       if (/^[^-]+-hover-self-/.test(matcher)) {
         const m = matcher.match(/^([^-]+)-hover-(self-.*)/);
         const mm = m[2].match(/^self-([^\:]+):((?=:*([^:]+):(.*))|(.*))/);

@@ -6,7 +6,7 @@
                 <div class="w-300px h-100% flex-center items-start flex-col abs-r z-2" v-if="show">
                     <div class="w-100% flex-center p-15px flex-col">
                         <div
-                            class="p-10px b-rd-5px b-solid b-#999 b-1px  abs-r of-hidden cursor-pointer !&-hover-self-div:op-100">
+                            class="p-10px b-rd-5px b-solid b-#999 b-1px  abs-r of-hidden cursor-pointer &-hover-self-div:op-100">
                             <img class="w-120px" :src="qrcode" alt=""></img>
                             <div
                                 class="bg-#000  bg-op-50 abs-content flex-center op-0 transition-all flex-ccenter flex-col gap-10px">
@@ -36,7 +36,7 @@ import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { createDiscreteApi } from 'naive-ui'
 import { differenceBy } from 'lodash'
 const { message } = createDiscreteApi(['message'])
-const show = ref(false)
+const show = ref(true)
 const loaction = useBrowserLocation()
 const qrText = computed(() => `${loaction.value.origin}/#/tirilaser-submit`)
 const qrcode = useQRCode(qrText.value)
