@@ -6,7 +6,24 @@ export const create = async function () {
   await query("INSERT INTO tirilaser (content) VALUES (?)", [content]);
   this.$success("更新成功");
 } as controller;
-export const list = async function () {
+export const list = async function (request) {
+  // 简单账号密码
+  const USERNAME = "admin";
+  const PASSWORD = "123456";
+
+  // 将账号密码转换为 Base64（Basic Auth 格式）
+  const authHeader =
+    "Basic " + Buffer.from(`${USERNAME}:${PASSWORD}`).toString("base64");
+  // 检查请求头中的 Authorization 是否匹配
+  if (request.headers.authorization !== authHeader) {
+    this.$error("未授权", {
+      statusCode: 401,
+      headers: {
+        "WWW-Authenticate": 'Basic realm="Restricted Area"',
+      },
+    });
+    return;
+  }
   const res = await query("SELECT * FROM tirilaser");
   this.$success({
     list: res,

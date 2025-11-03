@@ -28,6 +28,22 @@
         </div>
         <img class="abs left-10px top-10px  w-120px cursor-pointer z-100" src="/images/1.png" @click="show = !show"
             alt="">
+        <n-modal v-model:show="showLogin" title="管理员操作" width="300px" :close-on-click-modal="false"
+            :close-on-press-escape="false">
+            <div class="z-100 bg-#fff b-rd-5px  of-hidden p-15px">
+                <n-form>
+                    <n-form-item label="用户名">
+                        <n-input name="username" @keyup.enter="login" v-model:value="username"
+                            placeholder="请输入用户名"></n-input>
+                    </n-form-item>
+                    <n-form-item label="密码">
+                        <n-input name="password" @keyup.enter="login" v-model:value="password"
+                            placeholder="请输入密码"></n-input>
+                    </n-form-item>
+                    <n-button name="submit" type="primary" @click="login">确定</n-button>
+                </n-form>
+            </div>
+        </n-modal>
     </div>
 </template>
 <script setup lang="ts" title="欣睿激光-吐槽">
@@ -36,7 +52,10 @@ import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { createDiscreteApi } from 'naive-ui'
 import { differenceBy } from 'lodash'
 const { message } = createDiscreteApi(['message'])
+const username = ref('')
+const password = ref('')
 const show = ref(true)
+const showLogin = ref(true)
 const loaction = useBrowserLocation()
 const qrText = computed(() => `${loaction.value.origin}/#/tirilaser-submit`)
 const qrcode = useQRCode(qrText.value)
@@ -65,22 +84,27 @@ const init = () => {
 }
 const stop = watch([list, show], init, { immediate: true, deep: true })
 const getList = async () => {
-    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/list")
+    await fetch(import.meta.env.VITE_API_URL + "/tirilaser/list", {
+        headers: {
+            'Authorization': `Basic ${btoa(`${username.value}:${password.value}`)}`
+        }
+    })
         .then(res => res.json())
         .then(data => {
-            const diffData = differenceBy(data.data.list, list.value, 'id') as any
-            if (list.value.length > 0 && diffData.length > 0) {
-                // speechSynthesis.speak(new SpeechSynthesisUtterance(diffData.map(e => e.content).join(',')))
+            if (data.code === 403) {
+                message.error('未授权或账号密码错误!')
+                showLogin.value = true
+                username.value = ''
+                password.value = ''
+                return
             }
+            const diffData = differenceBy(data.data.list, list.value, 'id') as any
             list.value = list.value.concat(diffData)
-
-            // if(diffData.l)
-            // speechSynthesis.speak(new SpeechSynthesisUtterance(diffData.map(e => e.content).join(',')))
-        })
-        .finally(() => {
             setTimeout(async () => {
                 await getList()
             }, 1000);
+        }).catch(err => {
+            console.log(err)
         })
 }
 const exportData = async () => {
@@ -97,9 +121,11 @@ const exportData = async () => {
         })
     await message.success('导出成功!')
 }
-onMounted(async () => {
+const login = async () => {
+    if (!username.value || !password.value) return message.error('请输入用户名和密码!')
+    showLogin.value = false
     await getList()
-})
+}
 onBeforeUnmount(() => {
     wordcloud.value?.stop?.()
     stop()
