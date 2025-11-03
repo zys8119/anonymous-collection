@@ -3,7 +3,11 @@ import query from "../mysql";
 import * as XLSX from "xlsx";
 export const create = async function () {
   const content = await this.$s.get(true, this.$body, "content");
-  await query("INSERT INTO tirilaser (content) VALUES (?)", [content]);
+  const name = await this.$s.get(this.$body, "name");
+  await query("INSERT INTO tirilaser (content, name) VALUES (?)", [
+    content,
+    name,
+  ]);
   this.$success("更新成功");
 } as controller;
 const Authenticate = async function (request) {
