@@ -5,8 +5,11 @@ import VueRouter from "unplugin-vue-router/vite";
 import Vue from "@vitejs/plugin-vue";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import Unocss from "unocss/vite";
+import MotionResolver from "motion-v/resolver";
+import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     Unocss(),
     Vue(),
     VueRouter({
@@ -30,10 +33,9 @@ export default defineConfig({
       dirs: ["front/src/components"],
       dts: "auto-components.d.ts",
       include: [/\.vue$/, /\.vue\?vue/],
+      resolvers: [MotionResolver()],
     }),
   ],
   root: "front",
-  server: {
-    port: 8080,
-  },
+  server: {},
 });

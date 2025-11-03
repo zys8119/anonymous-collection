@@ -1,7 +1,8 @@
-import {AppServeOptions} from "@wisdom-serve/serve/types/type";
+import { AppServeOptions } from "@wisdom-serve/serve/types/type";
 
 export default <Partial<AppServeOptions>>{
-    mysqlAuto:false,
-    debug:true,
-    query_params:true,
-}
+  mysqlAuto: false,
+  debug: true,
+  query_params: true,
+  cors: true,
+};

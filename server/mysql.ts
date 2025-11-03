@@ -4,7 +4,7 @@ const pool = createPool({
   host: "127.0.0.1",
   port: 33006,
   user: "root",
-  password: "23456",
+  password: "123456",
   database: "api",
   connectionLimit: 10,
 });
