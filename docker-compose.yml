@@ -7,6 +7,7 @@ services:
     volumes:
       - ./front:/app/front
       - ./server:/app/server
+      - ./server/node_modules:/app/server/node_modules
       - ./vite.config.ts:/app/vite.config.ts
     environment:
       - VITE_API_URL=http://192.168.110.76:82
