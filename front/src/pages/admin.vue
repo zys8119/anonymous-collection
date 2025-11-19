@@ -14,7 +14,7 @@
                                 <n-button type="warning" @click="exportData">导出数据</n-button>
                             </div>
                         </div>
-                        <div class="text-#999 text-12px mt-10px">扫码吐槽</div>
+                        <div class="text-#999 text-12px mt-10px">扫码建议</div>
                     </div>
                     <div class="flex-1 w-100% of-x-hidden" ref="scroll">
                         <div class="p-10px b-#e5e5e5 b-t-1px last:b-b-1px" v-for="(item, index) in scrollList"
